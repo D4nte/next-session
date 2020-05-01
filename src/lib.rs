@@ -1,5 +1,5 @@
-use yew::prelude::*;
 use wasm_bindgen::prelude::*;
+use yew::prelude::*;
 
 struct Model {
     link: ComponentLink<Self>,
@@ -46,5 +46,5 @@ impl Component for Model {
 
 #[wasm_bindgen(start)]
 pub fn run_app() {
-    yew::start_app::<Model>();
+    App::<Model>::new().mount_to_body();
 }
