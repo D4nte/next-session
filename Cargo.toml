@@ -1,0 +1,15 @@
+[package]
+name = "next-session"
+version = "0.1.0"
+authors = ["Franck Royer <franck@royer.one>"]
+edition = "2018"
+license = "MIT"
+description = "A simple web app built in Rust/Yew to tell you when the next online Jitsu session is."
+repository = "https://github.com/d4nte/next-session"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+yew = "0.15"
+wasm-bindgen = "0.2"
