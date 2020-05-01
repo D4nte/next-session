@@ -1,3 +1,10 @@
+RUSTUP = rustup
+
+FMT_TOOLCHAIN = nightly-2020-01-15
+
+format:
+	$(RUSTUP) run --install $(FMT_TOOLCHAIN) cargo --color always fmt -- --files-with-diff
+
 build:
 	# wasm-pack overrides the git ignore file
 	cp ./static/.gitignore ./static/.gitignore.bk
