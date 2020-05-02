@@ -40,3 +40,6 @@ serve:
 
 clippy: install_clippy
 	$(CARGO) clippy --all-targets -- -D warnings
+
+clean:
+	$(CARGO) clean
