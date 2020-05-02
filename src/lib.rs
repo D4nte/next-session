@@ -13,7 +13,8 @@
 )]
 #![forbid(unsafe_code)]
 
-use crate::session::Session;
+use crate::session::{Schedule, Session};
+use chrono::{NaiveTime, Weekday};
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
@@ -27,9 +28,7 @@ impl Component for Model {
     type Message = ();
     type Properties = ();
     fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Model {
-            sessions: vec![Session::default()],
-        }
+        Model::default()
     }
 
     fn update(&mut self, _: Self::Message) -> ShouldRender {
@@ -47,8 +46,25 @@ impl Component for Model {
         web_sys::console::log_1(&"Rendering Model".into());
         html! {
             <div>
-                { self.sessions.get(0).unwrap().view() }
+                { for self.sessions.iter().map(|s| s.view() ) }
             </div>
+        }
+    }
+}
+
+impl Default for Model {
+    fn default() -> Self {
+        Self {
+            sessions: vec![
+                Session {
+                    club: "UTS Jitsu".to_string(),
+                    schedule: Schedule::new(Weekday::Wed, NaiveTime::from_hms(19, 15, 00)),
+                },
+                Session {
+                    club: "London Green +".to_string(),
+                    schedule: Schedule::new(Weekday::Sat, NaiveTime::from_hms(11, 15, 00)),
+                },
+            ],
         }
     }
 }

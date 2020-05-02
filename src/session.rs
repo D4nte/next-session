@@ -5,7 +5,7 @@ impl Component for Session {
     type Message = ();
     type Properties = ();
     fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Session::default()
+        unimplemented!()
     }
 
     fn update(&mut self, _: Self::Message) -> ShouldRender {
@@ -36,20 +36,11 @@ impl Component for Session {
 }
 
 pub struct Session {
-    club: String,
-    schedule: Schedule,
+    pub club: String,
+    pub schedule: Schedule,
 }
 
-impl Default for Session {
-    fn default() -> Self {
-        Session {
-            club: "UTS Jitsu".to_string(),
-            schedule: Schedule::new(Weekday::Wed, NaiveTime::from_hms(19, 15, 00)),
-        }
-    }
-}
-
-struct Schedule {
+pub struct Schedule {
     weekday: Weekday,
     time: NaiveTime,
 }
@@ -101,6 +92,16 @@ impl Schedule {
             next = next + Duration::days(7)
         }
         next
+    }
+}
+
+#[cfg(test)]
+impl Default for Session {
+    fn default() -> Self {
+        Session {
+            club: "UTS Jitsu".to_string(),
+            schedule: Schedule::new(Weekday::Wed, NaiveTime::from_hms(19, 15, 00)),
+        }
     }
 }
 
