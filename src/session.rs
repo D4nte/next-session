@@ -1,8 +1,52 @@
 use chrono::{DateTime, Datelike, Duration, NaiveTime, TimeZone, Timelike, Utc, Weekday};
+use yew::{prelude::*, Component, ComponentLink, Html, ShouldRender};
+
+impl Component for Session {
+    type Message = ();
+    type Properties = ();
+    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
+        Session::default()
+    }
+
+    fn update(&mut self, _: Self::Message) -> ShouldRender {
+        // Nothing to do here
+        true
+    }
+
+    fn change(&mut self, _: Self::Properties) -> ShouldRender {
+        // Should only return "true" if new properties are different to
+        // previously received properties.
+        // This component has no properties so we will always return "false".
+        false
+    }
+
+    fn view(&self) -> Html {
+        web_sys::console::log_1(&"view on session".into());
+        let text = format!("{}: {}", self.club, self.schedule.next());
+        web_sys::console::log_1(&"generated text".into());
+        web_sys::console::log_1(&text.clone().into());
+        let html = html! {
+            <div>
+                <p>{ text }</p>
+            </div>
+        };
+        web_sys::console::log_1(&"Session rendered".into());
+        html
+    }
+}
 
 pub struct Session {
     club: String,
     schedule: Schedule,
+}
+
+impl Default for Session {
+    fn default() -> Self {
+        Session {
+            club: "UTS Jitsu".to_string(),
+            schedule: Schedule::new(Weekday::Wed, NaiveTime::from_hms(19, 15, 00)),
+        }
+    }
 }
 
 struct Schedule {
@@ -20,7 +64,10 @@ impl Schedule {
     }
 
     pub fn next(&self) -> DateTime<Utc> {
-        self.next_from_current(Utc::now())
+        web_sys::console::log_1(&"Calling now".into());
+        let now = Utc::now();
+        web_sys::console::log_1(&"now has been called".into());
+        self.next_from_current(now)
     }
 
     pub fn time_to_next_from_current(&self, time: DateTime<Utc>) -> Duration {
@@ -31,6 +78,7 @@ impl Schedule {
     /// Calculate when the next session should be based
     /// on the current time.
     pub fn next_from_current(&self, current_time: DateTime<Utc>) -> DateTime<Utc> {
+        web_sys::console::log_1(&"entering next_from_current".into());
         let weekday = self.weekday.num_days_from_monday();
         let current_weekday = current_time.weekday().num_days_from_monday();
 

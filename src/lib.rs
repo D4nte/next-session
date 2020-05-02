@@ -23,26 +23,20 @@ struct Model {
     sessions: Vec<Session>,
 }
 
-enum Msg {
-    AddOne,
-}
-
 impl Component for Model {
-    type Message = Msg;
+    type Message = ();
     type Properties = ();
-    fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        // Self { link, value: 0 }
-        unimplemented!()
+    fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
+        Model {
+            sessions: vec![Session::default()],
+        }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
-        // match msg {
-        //     Msg::AddOne => self.value += 1,
-        // }
+    fn update(&mut self, _: Self::Message) -> ShouldRender {
         true
     }
 
-    fn change(&mut self, _props: Self::Properties) -> ShouldRender {
+    fn change(&mut self, _: Self::Properties) -> ShouldRender {
         // Should only return "true" if new properties are different to
         // previously received properties.
         // This component has no properties so we will always return "false".
@@ -50,9 +44,10 @@ impl Component for Model {
     }
 
     fn view(&self) -> Html {
+        web_sys::console::log_1(&"Rendering Model".into());
         html! {
             <div>
-                <p></p>
+                { self.sessions.get(0).unwrap().view() }
             </div>
         }
     }
