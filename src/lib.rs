@@ -53,15 +53,20 @@ impl Component for Model {
 
 impl Default for Model {
 	fn default() -> Self {
+		use Weekday::*;
 		Self {
 			sessions: vec![
 				Session {
 					club: "UTS Jitsu".to_string(),
-					schedule: Schedule::new(Weekday::Wed, NaiveTime::from_hms(19, 15, 00), 10),
+					schedule: Schedule::new(Wed, NaiveTime::from_hms(19, 15, 00), 10),
 				},
 				Session {
 					club: "London Green +".to_string(),
-					schedule: Schedule::new(Weekday::Sat, NaiveTime::from_hms(10, 45, 00), 1),
+					schedule: Schedule::new(Sat, NaiveTime::from_hms(10, 45, 00), 1),
+				},
+				Session {
+					club: "Aston University Jiu Jitsu Club".to_string(),
+					schedule: Schedule::new(Mon, NaiveTime::from_hms(20, 30, 00), 1),
 				},
 			],
 		}
