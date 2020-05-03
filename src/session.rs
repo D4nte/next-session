@@ -60,3 +60,42 @@ impl Default for Session {
 		}
 	}
 }
+
+impl Session {
+	pub fn order(sessions: Vec<Session>, time: DateTime<Utc>) -> Vec<Session> {
+		unimplemented!()
+	}
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use chrono::{NaiveTime, TimeZone, Weekday};
+
+	#[test]
+	fn schedules_are_ordered_chronologically() {
+		let sessions = vec![
+			Session {
+				club: "Second".to_string(),
+				schedule: Schedule::new(Weekday::Wed, NaiveTime::from_hms(19, 00, 00), 0),
+			},
+			Session {
+				club: "First".to_string(),
+				schedule: Schedule::new(Weekday::Wed, NaiveTime::from_hms(20, 00, 00), 3),
+			},
+			Session {
+				club: "Third".to_string(),
+				schedule: Schedule::new(Weekday::Mon, NaiveTime::from_hms(10, 00, 00), 1),
+			},
+		];
+
+		let ordered = Session::order(
+			sessions,
+			Utc.isoywd(2020, 2, Weekday::Tue).and_hms(12, 00, 00),
+		);
+
+		assert_eq!(ordered.get(0).unwrap().club, "First".to_string());
+		assert_eq!(ordered.get(1).unwrap().club, "Second".to_string());
+		assert_eq!(ordered.get(2).unwrap().club, "Third".to_string());
+	}
+}
