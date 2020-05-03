@@ -30,13 +30,12 @@ check_format:
 	$(FMT_CARGO)  fmt -- --check
 
 build:
-	# wasm-pack overrides the git ignore file
-	cp ./static/.gitignore ./static/.gitignore.bk
-	YEWTIFY_OUT=./static wasm-pack build --debug --target web --out-name wasm --out-dir ./static
-	mv ./static/.gitignore.bk ./static/.gitignore
+	mkdir -p ./pkg/
+	cp ./static/* ./pkg/
+	wasm-pack build --debug --target web --out-name wasm
 
 serve:
-	python3 -m http.server --directory static
+	python3 -m http.server --directory pkg
 
 clippy: install_clippy
 	$(CARGO) clippy --all-targets -- -D warnings

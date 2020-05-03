@@ -11,10 +11,7 @@ repository = "https://github.com/d4nte/next-session"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-#yew = { git = "ssh://git@github.com/yewstack/yew", branch = "push-if" }
-yew = "0.14"
+yew = "0.15"
 wasm-bindgen = "0.2"
 chrono = { version = "0.4", features = ["wasmbind"]}
 web-sys = "0.3"
-#yewtify = { git = "https://github.com/yewstack/yewtify" }
-yew-mdc = { git = "https://github.com/Follpvosten/yew-mdc.git" }

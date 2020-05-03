@@ -44,9 +44,9 @@ impl Component for Model {
 
 	fn view(&self) -> Html {
 		html! {
-			<>
+			<div class="container">
 				{ for self.sessions.iter().map(|s| s.view() ) }
-			</>
+			</div>
 		}
 	}
 }

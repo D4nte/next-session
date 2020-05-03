@@ -1,6 +1,5 @@
 use chrono::{DateTime, Datelike, Duration, NaiveTime, TimeZone, Timelike, Utc, Weekday};
 use yew::{prelude::*, Component, ComponentLink, Html, ShouldRender};
-use yew_mdc::components::*;
 
 impl Component for Session {
 	type Message = ();
@@ -26,14 +25,12 @@ impl Component for Session {
 		let club = self.club.clone();
 		let time = self.schedule.next().to_string();
 		html! {
-			<Card>
-					<p class="mdc-typography" variant="body2" >
-					{ club }
-					</p>
-					<p class="mdc-typography" variant="body2" >
-					{ time }
-					</p>
-			</Card>
+		<div class="card mb-3" style="">
+			<div class="card-body">
+				<h5 class="card-title">{ club }</h5>
+				<p class="card-text">{ time }</p>
+			</div>
+		</div>
 		}
 	}
 }
