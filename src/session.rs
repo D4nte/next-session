@@ -1,4 +1,6 @@
-use chrono::{DateTime, Datelike, Duration, NaiveTime, TimeZone, Timelike, Utc, Weekday};
+use chrono::{
+	DateTime, Datelike, Duration, FixedOffset, NaiveTime, TimeZone, Timelike, Utc, Weekday,
+};
 use yew::{prelude::*, Component, ComponentLink, Html, ShouldRender};
 
 impl Component for Session {
@@ -43,7 +45,7 @@ pub struct Session {
 pub struct Schedule {
 	weekday: Weekday,
 	time: NaiveTime,
-	offset_secs: i32,
+	offset: FixedOffset,
 }
 
 impl Schedule {
@@ -51,7 +53,7 @@ impl Schedule {
 		Schedule {
 			weekday,
 			time,
-			offset_secs: offset_hours * 3600,
+			offset: FixedOffset::east(offset_hours * 3600),
 		}
 	}
 
@@ -72,6 +74,7 @@ impl Schedule {
 	/// Calculate when the next session should be based
 	/// on the current time.
 	pub fn next_from_current(&self, current_time: DateTime<Utc>) -> DateTime<Utc> {
+		let current_time = current_time.with_timezone(&self.offset);
 		let weekday = self.weekday.num_days_from_monday();
 		let current_weekday = current_time.weekday().num_days_from_monday();
 
@@ -81,7 +84,8 @@ impl Schedule {
 			7 + weekday - current_weekday
 		};
 
-		let mut next = Utc
+		let mut next = self
+			.offset
 			.ymd(
 				current_time.year(),
 				current_time.month(),
@@ -93,7 +97,7 @@ impl Schedule {
 			// Session was today
 			next = next + Duration::days(7)
 		}
-		next
+		next.with_timezone(&Utc)
 	}
 }
 
