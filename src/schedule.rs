@@ -66,6 +66,7 @@ impl Schedule {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use chrono::Local;
 
 	#[test]
 	fn next_session_tomorrow_same_time() {
@@ -150,7 +151,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Sat, NaiveTime::from_hms(09, 0, 0), 0);
+		let schedule = Schedule::new(Weekday::Sat, NaiveTime::from_hms(9, 0, 0), 0);
 
 		assert_eq!(
 			schedule.time_to_next_from_current(current_time),
@@ -218,9 +219,7 @@ mod tests {
 		let schedule = Schedule::new(Weekday::Sun, NaiveTime::from_hms(5, 0, 0), 10);
 		println!(
 			"{}",
-			Utc.ymd(2020, 05, 01)
-				.and_hms(12, 0, 0)
-				.with_timezone(&Local)
+			Utc.ymd(2020, 5, 1).and_hms(12, 0, 0).with_timezone(&Local)
 		);
 		assert_eq!(
 			schedule.next_from_current(current_time),

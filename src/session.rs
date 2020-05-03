@@ -53,6 +53,7 @@ fn utc_to_local(utc: &DateTime<Utc>) -> DateTime<Local> {
 #[cfg(test)]
 impl Default for Session {
 	fn default() -> Self {
+		use chrono::{NaiveTime, Weekday};
 		Session {
 			club: "UTS Jitsu".to_string(),
 			schedule: Schedule::new(Weekday::Wed, NaiveTime::from_hms(19, 15, 00), 10),
