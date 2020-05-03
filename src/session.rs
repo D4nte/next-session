@@ -1,5 +1,5 @@
 use chrono::{
-	DateTime, Datelike, Duration, FixedOffset, NaiveTime, TimeZone, Timelike, Utc, Weekday,
+	DateTime, Datelike, Duration, FixedOffset, Local, NaiveTime, TimeZone, Timelike, Utc, Weekday,
 };
 use yew::{prelude::*, Component, ComponentLink, Html, ShouldRender};
 
@@ -25,7 +25,7 @@ impl Component for Session {
 	fn view(&self) -> Html {
 		web_sys::console::log_1(&"view on session".into());
 		let club = self.club.clone();
-		let time = self.schedule.next().to_string();
+		let time = utc_to_local(&self.schedule.next()).to_string();
 		html! {
 		<div class="card bg-light mb-3" style="">
 			<div class="card-body">
@@ -57,6 +57,8 @@ impl Schedule {
 		}
 	}
 
+	// Will use that when showing count down
+	#[allow(dead_code)]
 	pub fn time_to_next(&self) -> Duration {
 		self.time_to_next_from_current(Utc::now())
 	}
@@ -99,6 +101,13 @@ impl Schedule {
 		}
 		next.with_timezone(&Utc)
 	}
+}
+
+// Until https://github.com/chronotope/chrono/pull/412/ gets merged and released
+fn utc_to_local(utc: &DateTime<Utc>) -> DateTime<Local> {
+	let utc = utc.naive_utc();
+	let offset = FixedOffset::west((js_sys::Date::new_0().get_timezone_offset() as i32) * 60);
+	DateTime::from_utc(utc, offset)
 }
 
 #[cfg(test)]
@@ -264,7 +273,12 @@ mod tests {
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(20, 00, 00);
 
 		let schedule = Schedule::new(Weekday::Sun, NaiveTime::from_hms(5, 0, 0), 10);
-
+		println!(
+			"{}",
+			Utc.ymd(2020, 05, 01)
+				.and_hms(12, 0, 0)
+				.with_timezone(&Local)
+		);
 		assert_eq!(
 			schedule.next_from_current(current_time),
 			Utc.ymd(2020, 5, 9).and_hms(19, 00, 00)

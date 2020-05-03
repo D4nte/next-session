@@ -61,7 +61,7 @@ impl Default for Model {
 				},
 				Session {
 					club: "London Green +".to_string(),
-					schedule: Schedule::new(Weekday::Sat, NaiveTime::from_hms(11, 15, 00), 1),
+					schedule: Schedule::new(Weekday::Sat, NaiveTime::from_hms(10, 45, 00), 1),
 				},
 			],
 		}
