@@ -24,9 +24,9 @@ impl Component for Session {
 	fn view(&self) -> Html {
 		web_sys::console::log_1(&"view on session".into());
 		let club = self.club.clone();
-		let time = utc_to_local(&self.schedule.next()).to_string();
+		let time = utc_to_local(&self.schedule.next()).format("%A %H:%M");
 		html! {
-		<div class="card bg-light mb-3" style="">
+		<div class="card bg-light mt-3 mb-3" style="">
 			<div class="card-body">
 				<h5 class="card-title">{ club }</h5>
 				<p class="card-text">{ time }</p>
