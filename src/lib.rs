@@ -57,11 +57,11 @@ impl Default for Model {
 			sessions: vec![
 				Session {
 					club: "UTS Jitsu".to_string(),
-					schedule: Schedule::new(Weekday::Wed, NaiveTime::from_hms(19, 15, 00)),
+					schedule: Schedule::new(Weekday::Wed, NaiveTime::from_hms(19, 15, 00), 10),
 				},
 				Session {
 					club: "London Green +".to_string(),
-					schedule: Schedule::new(Weekday::Sat, NaiveTime::from_hms(11, 15, 00)),
+					schedule: Schedule::new(Weekday::Sat, NaiveTime::from_hms(11, 15, 00), 1),
 				},
 			],
 		}
