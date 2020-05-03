@@ -13,11 +13,12 @@
 )]
 #![forbid(unsafe_code)]
 
-use crate::session::{Schedule, Session};
+use crate::{schedule::Schedule, session::Session};
 use chrono::{NaiveTime, Weekday};
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
+mod schedule;
 mod session;
 
 struct Model {
