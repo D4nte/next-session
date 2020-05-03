@@ -25,7 +25,7 @@ impl Component for Session {
 		let club = self.club.clone();
 		let time = self.schedule.next().to_string();
 		html! {
-		<div class="card mb-3" style="">
+		<div class="card bg-light mb-3" style="">
 			<div class="card-body">
 				<h5 class="card-title">{ club }</h5>
 				<p class="card-text">{ time }</p>
@@ -55,9 +55,7 @@ impl Schedule {
 	}
 
 	pub fn next(&self) -> DateTime<Utc> {
-		web_sys::console::log_1(&"Calling now".into());
 		let now = Utc::now();
-		web_sys::console::log_1(&"now has been called".into());
 		self.next_from_current(now)
 	}
 
@@ -69,7 +67,6 @@ impl Schedule {
 	/// Calculate when the next session should be based
 	/// on the current time.
 	pub fn next_from_current(&self, current_time: DateTime<Utc>) -> DateTime<Utc> {
-		web_sys::console::log_1(&"entering next_from_current".into());
 		let weekday = self.weekday.num_days_from_monday();
 		let current_weekday = current_time.weekday().num_days_from_monday();
 
