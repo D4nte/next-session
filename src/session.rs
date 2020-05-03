@@ -1,5 +1,6 @@
 use chrono::{DateTime, Datelike, Duration, NaiveTime, TimeZone, Timelike, Utc, Weekday};
 use yew::{prelude::*, Component, ComponentLink, Html, ShouldRender};
+use yew_mdc::components::*;
 
 impl Component for Session {
 	type Message = ();
@@ -22,16 +23,18 @@ impl Component for Session {
 
 	fn view(&self) -> Html {
 		web_sys::console::log_1(&"view on session".into());
-		let text = format!("{}: {}", self.club, self.schedule.next());
-		web_sys::console::log_1(&"generated text".into());
-		web_sys::console::log_1(&text.clone().into());
-		let html = html! {
-			<div>
-				<p>{ text }</p>
-			</div>
-		};
-		web_sys::console::log_1(&"Session rendered".into());
-		html
+		let club = self.club.clone();
+		let time = self.schedule.next().to_string();
+		html! {
+			<Card>
+					<p class="mdc-typography" variant="body2" >
+					{ club }
+					</p>
+					<p class="mdc-typography" variant="body2" >
+					{ time }
+					</p>
+			</Card>
+		}
 	}
 }
 

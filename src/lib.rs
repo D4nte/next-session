@@ -43,11 +43,10 @@ impl Component for Model {
 	}
 
 	fn view(&self) -> Html {
-		web_sys::console::log_1(&"Rendering Model".into());
 		html! {
-			<div>
+			<>
 				{ for self.sessions.iter().map(|s| s.view() ) }
-			</div>
+			</>
 		}
 	}
 }

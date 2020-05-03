@@ -32,7 +32,7 @@ check_format:
 build:
 	# wasm-pack overrides the git ignore file
 	cp ./static/.gitignore ./static/.gitignore.bk
-	wasm-pack build --debug --target web --out-name wasm --out-dir ./static
+	YEWTIFY_OUT=./static wasm-pack build --debug --target web --out-name wasm --out-dir ./static
 	mv ./static/.gitignore.bk ./static/.gitignore
 
 serve:
