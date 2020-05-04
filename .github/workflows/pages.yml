@@ -25,7 +25,9 @@ jobs:
           override: true
 
       - name: Build
-        run: make build && ls pkg
+        run: |
+          make build
+          rm -f .gitignore ./pkg/.gitignore
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
