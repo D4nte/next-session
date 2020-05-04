@@ -30,8 +30,9 @@ pub struct Session {
 	pub link: String,
 	#[serde(deserialize_with = "deserialize_weekday")]
 	pub weekday: chrono::Weekday,
+	#[serde(default)]
 	#[serde(deserialize_with = "deserialize_time")]
-	pub start: NaiveTime,
+	pub start: Option<NaiveTime>,
 }
 
 impl Config {
@@ -84,17 +85,24 @@ where
 	deserializer.deserialize_str(Visitor)
 }
 
-fn deserialize_time<'de, D>(deserializer: D) -> Result<NaiveTime, D::Error>
+fn deserialize_time<'de, D>(deserializer: D) -> Result<Option<NaiveTime>, D::Error>
 where
 	D: Deserializer<'de>,
 {
 	struct Visitor;
 
 	impl<'de> serde::de::Visitor<'de> for Visitor {
-		type Value = NaiveTime;
+		type Value = Option<NaiveTime>;
 
 		fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
 			formatter.write_str("A 24-hours time string: HHMM")
+		}
+
+		fn visit_none<E>(self) -> Result<Self::Value, E>
+		where
+			E: serde::de::Error,
+		{
+			Ok(None)
 		}
 
 		fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
@@ -103,10 +111,11 @@ where
 		{
 			NaiveTime::parse_from_str(v, "%H%M")
 				.map_err(|e| (E::custom(format!("Could not parse time from {}: {}", v, e))))
+				.map(Some)
 		}
 	}
 
-	deserializer.deserialize_str(Visitor)
+	deserializer.deserialize_any(Visitor)
 }
 
 #[cfg(test)]
@@ -140,13 +149,13 @@ mod test {
 					name: "Aston University Jiu Jitsu Club".to_string(),
 					link: "https://www.facebook.com/AstonJiuJitsu/".to_string(),
 					weekday: Weekday::Mon,
-					start: NaiveTime::from_hms(20, 30, 00),
+					start: Some(NaiveTime::from_hms(20, 30, 00)),
 				},
 				Session {
 					name: "Brighton Jiu Jitsu Club".to_string(),
 					link: "https://www.facebook.com/groups/UniversitiesBrightonJitsu/".to_string(),
 					weekday: Weekday::Wed,
-					start: NaiveTime::from_hms(19, 00, 00),
+					start: Some(NaiveTime::from_hms(19, 00, 00)),
 				}
 			]
 		})

@@ -6,14 +6,18 @@ pub struct Schedule {
 	weekday: Weekday,
 	time: NaiveTime,
 	offset: FixedOffset,
+	// TODO: Display it
+	#[allow(dead_code)]
+	unverified_time: bool,
 }
 
 impl Schedule {
-	pub fn new(weekday: Weekday, time: NaiveTime, offset_hours: i32) -> Schedule {
+	pub fn new(weekday: Weekday, time: Option<NaiveTime>, offset_hours: i32) -> Schedule {
 		Schedule {
 			weekday,
-			time,
+			time: time.unwrap_or_else(|| NaiveTime::from_hms(18, 00, 00)),
 			offset: FixedOffset::east(offset_hours * 3600),
+			unverified_time: time.is_none(),
 		}
 	}
 
@@ -69,7 +73,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Sun, NaiveTime::from_hms(10, 0, 0), 0);
+		let schedule = Schedule::new(Weekday::Sun, Some(NaiveTime::from_hms(10, 0, 0)), 0);
 
 		assert_eq!(
 			schedule.next_from_time(current_time),
@@ -82,7 +86,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Fri, NaiveTime::from_hms(10, 0, 0), 0);
+		let schedule = Schedule::new(Weekday::Fri, Some(NaiveTime::from_hms(10, 0, 0)), 0);
 
 		assert_eq!(
 			schedule.next_from_time(current_time),
@@ -95,7 +99,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Sat, NaiveTime::from_hms(9, 0, 0), 0);
+		let schedule = Schedule::new(Weekday::Sat, Some(NaiveTime::from_hms(9, 0, 0)), 0);
 
 		assert_eq!(
 			schedule.next_from_time(current_time),
@@ -108,7 +112,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Sun, NaiveTime::from_hms(10, 0, 0), 0);
+		let schedule = Schedule::new(Weekday::Sun, Some(NaiveTime::from_hms(10, 0, 0)), 0);
 
 		assert_eq!(
 			schedule.time_to_next_from_time(current_time),
@@ -121,7 +125,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Sat, NaiveTime::from_hms(11, 0, 0), 0);
+		let schedule = Schedule::new(Weekday::Sat, Some(NaiveTime::from_hms(11, 0, 0)), 0);
 
 		assert_eq!(
 			schedule.time_to_next_from_time(current_time),
@@ -134,7 +138,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Tue, NaiveTime::from_hms(10, 0, 0), 0);
+		let schedule = Schedule::new(Weekday::Tue, Some(NaiveTime::from_hms(10, 0, 0)), 0);
 
 		assert_eq!(
 			schedule.time_to_next_from_time(current_time),
@@ -147,7 +151,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Sat, NaiveTime::from_hms(9, 0, 0), 0);
+		let schedule = Schedule::new(Weekday::Sat, Some(NaiveTime::from_hms(9, 0, 0)), 0);
 
 		assert_eq!(
 			schedule.time_to_next_from_time(current_time),
@@ -160,7 +164,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Sun, NaiveTime::from_hms(12, 0, 0), 2);
+		let schedule = Schedule::new(Weekday::Sun, Some(NaiveTime::from_hms(12, 0, 0)), 2);
 
 		assert_eq!(
 			schedule.next_from_time(current_time),
@@ -173,7 +177,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Sun, NaiveTime::from_hms(8, 0, 0), -2);
+		let schedule = Schedule::new(Weekday::Sun, Some(NaiveTime::from_hms(8, 0, 0)), -2);
 
 		assert_eq!(
 			schedule.next_from_time(current_time),
@@ -186,7 +190,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Fri, NaiveTime::from_hms(12, 0, 0), 2);
+		let schedule = Schedule::new(Weekday::Fri, Some(NaiveTime::from_hms(12, 0, 0)), 2);
 
 		assert_eq!(
 			schedule.next_from_time(current_time),
@@ -199,7 +203,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(10, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Fri, NaiveTime::from_hms(8, 0, 0), -2);
+		let schedule = Schedule::new(Weekday::Fri, Some(NaiveTime::from_hms(8, 0, 0)), -2);
 
 		assert_eq!(
 			schedule.next_from_time(current_time),
@@ -212,7 +216,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(20, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Sun, NaiveTime::from_hms(5, 0, 0), 10);
+		let schedule = Schedule::new(Weekday::Sun, Some(NaiveTime::from_hms(5, 0, 0)), 10);
 		println!(
 			"{}",
 			Utc.ymd(2020, 5, 1).and_hms(12, 0, 0).with_timezone(&Local)
@@ -228,7 +232,7 @@ mod tests {
 		// Saturday 2nd of May
 		let current_time = Utc.ymd(2020, 5, 2).and_hms(20, 00, 00);
 
-		let schedule = Schedule::new(Weekday::Sat, NaiveTime::from_hms(9, 0, 0), -10);
+		let schedule = Schedule::new(Weekday::Sat, Some(NaiveTime::from_hms(9, 0, 0)), -10);
 
 		assert_eq!(
 			schedule.next_from_time(current_time),

@@ -33,7 +33,7 @@ pub const DATA: &str = r#"
     }, {
       "link": "https://www.facebook.com/newquayjitsu/",
       "name": "Cornwall Jiu Jitsu Club",
-      "weeday": "Mon",
+      "weekday": "Mon",
       "start": "1745"
     }, {
       "link": "https://www.facebook.com/groups/835506009825760",
@@ -155,7 +155,7 @@ pub const DATA: &str = r#"
       "name": "Oxford Jiu Jitsu Club",
       "weekday": "Wed",
       "start": "1800"
-    }, }, {
+    }, {
       "link": "https://www.facebook.com/groups/prestonjitsu/",
       "name": "Preston Jiu Jitsu Club",
       "weekday": "Tue",
