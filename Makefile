@@ -23,10 +23,10 @@ ifeq (,$(findstring clippy,$(INSTALLED_COMPONENTS)))
 	$(RUSTUP) component add clippy --toolchain $(TOOLCHAIN)
 endif
 
-format:
+format: install_rust_fmt
 	$(FMT_CARGO) fmt -- --files-with-diff
 
-check_format:
+check_format: install_rust_fmt
 	$(FMT_CARGO)  fmt -- --check
 
 build:
