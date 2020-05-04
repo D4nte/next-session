@@ -7,3 +7,4 @@ All information published by this app is publicly available on The Jiu-Jitsu Fou
 You can find the live app at https://d4nte.github.io/next-session/.
 
 This app is entirely built using Rust 🦀 using the [Yew](https://yew.rs/) framework.
+It then compiled in WASM binary to run in your browser!
