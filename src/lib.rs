@@ -25,14 +25,23 @@ struct Model {
 	sessions: Vec<Session>,
 }
 
+impl Model {
+	pub fn sort(&mut self) {
+		Session::order(&mut self.sessions)
+	}
+}
+
 impl Component for Model {
 	type Message = ();
 	type Properties = ();
 	fn create(_: Self::Properties, _: ComponentLink<Self>) -> Self {
-		Model::default()
+		let mut model = Model::default();
+		model.sort();
+		model
 	}
 
 	fn update(&mut self, _: Self::Message) -> ShouldRender {
+		self.sort();
 		true
 	}
 
