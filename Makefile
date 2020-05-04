@@ -27,13 +27,16 @@ ifeq (,$(findstring clippy,$(INSTALLED_COMPONENTS)))
 	$(RUSTUP) component add clippy --toolchain $(TOOLCHAIN)
 endif
 
+install_wasm_pack:
+	curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
 format: install_rust_fmt
 	$(FMT_CARGO) fmt -- --files-with-diff
 
 check_format: install_rust_fmt
 	$(FMT_CARGO)  fmt -- --check
 
-build:
+build: install_wasm_pack
 	mkdir -p ./pkg/
 	cp ./static/* ./pkg/
 	wasm-pack build --debug --target web --out-name wasm
