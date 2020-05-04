@@ -28,7 +28,7 @@ ifeq (,$(findstring clippy,$(INSTALLED_COMPONENTS)))
 endif
 
 install_wasm_pack:
-	curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+	which wasm-pack || $(CARGO) install wasm-pack
 
 format: install_rust_fmt
 	$(FMT_CARGO) fmt -- --files-with-diff

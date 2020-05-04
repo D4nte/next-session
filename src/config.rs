@@ -20,21 +20,22 @@ use std::io::BufReader;
 use std::path::Path;
 
 #[derive(Debug, Deserialize, PartialEq)]
-struct Config {
-	sessions: Vec<Session>,
+pub struct Config {
+	pub sessions: Vec<Session>,
 }
 
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Session {
-	name: String,
-	link: String,
+	pub name: String,
+	pub link: String,
 	#[serde(deserialize_with = "deserialize_weekday")]
-	weekday: chrono::Weekday,
+	pub weekday: chrono::Weekday,
 	#[serde(deserialize_with = "deserialize_time")]
-	start: NaiveTime,
+	pub start: NaiveTime,
 }
 
 impl Config {
+	#[allow(dead_code)]
 	pub fn read<P>(path: P) -> anyhow::Result<Self>
 	where
 		P: AsRef<Path>,
@@ -42,6 +43,10 @@ impl Config {
 		let file = File::open(path)?;
 		let buf_reader = BufReader::new(file);
 		Ok(serde_json::from_reader(buf_reader)?)
+	}
+
+	pub fn load(data: &str) -> anyhow::Result<Self> {
+		Ok(serde_json::from_str(data)?)
 	}
 }
 
