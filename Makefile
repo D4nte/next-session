@@ -42,3 +42,6 @@ clippy: install_clippy
 
 clean:
 	$(CARGO) clean
+
+test:
+	$(CARGO) test

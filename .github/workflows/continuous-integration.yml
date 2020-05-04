@@ -1,0 +1,33 @@
+name: Continuous Integration
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Extract toolchain version from rust-toolchain
+        run: echo "::set-env name=RUST_TOOLCHAIN::$(cat rust-toolchain)"
+
+      - name: Install ${{ env.RUST_TOOLCHAIN }} toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+          override: true
+
+      - name: Check formatting
+        run: make check_format
+
+      - name: Run Clippy
+        run: make clippy
+
+      - name: Build ${{ matrix.os }} binary
+        run: make build
+
+      - name: Run tests
+        run: make test
