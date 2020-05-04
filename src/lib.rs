@@ -27,7 +27,7 @@ struct Model {
 
 impl Model {
 	pub fn sort(&mut self) {
-		Session::order(&mut self.sessions)
+		Session::sort(&mut self.sessions)
 	}
 }
 

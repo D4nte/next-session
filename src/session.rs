@@ -62,11 +62,11 @@ impl Default for Session {
 }
 
 impl Session {
-	pub fn order(sessions: &mut Vec<Session>) {
-		Self::order_from_time(sessions, Utc::now())
+	pub fn sort(sessions: &mut Vec<Session>) {
+		Self::sort_from_time(sessions, Utc::now())
 	}
 
-	pub fn order_from_time(sessions: &mut Vec<Session>, time: DateTime<Utc>) {
+	pub fn sort_from_time(sessions: &mut Vec<Session>, time: DateTime<Utc>) {
 		sessions.sort_by(|a, b| {
 			a.schedule
 				.time_to_next_from_time(time)
@@ -97,7 +97,7 @@ mod tests {
 			},
 		];
 
-		Session::order_from_time(
+		Session::sort_from_time(
 			&mut sessions,
 			Utc.isoywd(2020, 2, Weekday::Tue).and_hms(12, 00, 00),
 		);
