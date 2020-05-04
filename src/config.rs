@@ -112,9 +112,10 @@ where
 #[cfg(test)]
 mod test {
 	use super::*;
+	use crate::data;
 
 	#[test]
-	fn deserialize_config() {
+	fn deserialize_config_sample() {
 		let content = r#"
 {
   "sessions": [
@@ -149,5 +150,10 @@ mod test {
 				}
 			]
 		})
+	}
+
+	#[test]
+	fn deserialize_whole_config() {
+		let _: Config = serde_json::from_str(data::DATA).unwrap();
 	}
 }

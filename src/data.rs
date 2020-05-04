@@ -15,11 +15,11 @@ pub const DATA: &str = r#"
       "link": "https://www.facebook.com/AstonJiuJitsu/",
       "name": "Aston University Jiu Jitsu Club",
       "weekday": "Mon",
-      "start": "2030-2130"
+      "start": "2030"
     }, {
       "link": "https://www.facebook.com/groups/UniversitiesBrightonJitsu/",
       "name": "Brighton Jiu Jitsu Club",
-      "weeday": "Wed",
+      "weekday": "Wed",
       "start": "1900"
     }, {
       "link": "https://www.facebook.com/groups/bruneljitsu/",
