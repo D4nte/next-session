@@ -1,3 +1,4 @@
+// TODO: Replace that with a JSON file read at built time.
 pub const DATA: &str = r#"
 {
   "sessions": [
