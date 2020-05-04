@@ -110,7 +110,24 @@ mod test {
 
 	#[test]
 	fn deserialize_config() {
-		let config = Config::read("./static/config.json").unwrap();
+		let content = r#"
+{
+  "sessions": [
+    {
+      "name": "Aston University Jiu Jitsu Club",
+      "link": "https://www.facebook.com/AstonJiuJitsu/",
+      "weekday": "Mon",
+      "start": "2030"
+    }, {
+      "name": "Brighton Jiu Jitsu Club",
+      "link": "https://www.facebook.com/groups/UniversitiesBrightonJitsu/",
+      "weekday": "Wed",
+      "start": "1900"
+    }
+  ]
+}
+		"#;
+		let config: Config = serde_json::from_str(content).unwrap();
 		assert_eq!(config, Config {
 			sessions: vec![
 				Session {
