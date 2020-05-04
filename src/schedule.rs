@@ -21,7 +21,7 @@ impl Schedule {
 		}
 	}
 
-	// Will use that when showing count down
+	// TODO: Use that when showing count down
 	#[allow(dead_code)]
 	pub fn time_to_next(&self) -> Duration {
 		self.time_to_next_from_time(Utc::now())
@@ -35,6 +35,10 @@ impl Schedule {
 	pub fn time_to_next_from_time(&self, time: DateTime<Utc>) -> Duration {
 		let next = self.next_from_time(time);
 		next - time
+	}
+
+	pub fn unverified(&self) -> bool {
+		self.unverified_time
 	}
 
 	/// Calculate when the next session should be based

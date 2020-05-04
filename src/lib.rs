@@ -10,6 +10,7 @@
 	clippy::dbg_macro
 )]
 #![forbid(unsafe_code)]
+#![recursion_limit = "256"]
 
 use crate::model::Model;
 use wasm_bindgen::prelude::*;
