@@ -41,6 +41,11 @@ build: install_wasm_pack
 	cp ./static/* ./pkg/
 	wasm-pack build --debug --target web --out-name wasm
 
+build_release: install_wasm_pack
+	mkdir -p ./pkg/
+	cp ./static/* ./pkg/
+	wasm-pack build --target web --out-name wasm
+
 serve:
 	python3 -m http.server --directory pkg
 

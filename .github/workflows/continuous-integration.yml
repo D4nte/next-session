@@ -38,8 +38,8 @@ jobs:
       - name: Run Clippy
         run: make clippy
 
-      - name: Build
-        run: make build
+      - name: Build Release
+        run: make build_release
 
       - name: Run tests
         run: make test
