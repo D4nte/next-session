@@ -62,13 +62,16 @@ impl Default for Session {
 }
 
 impl Session {
-	pub fn order(mut sessions: Vec<Session>, time: DateTime<Utc>) -> Vec<Session> {
+	pub fn order(sessions: &mut Vec<Session>) {
+		Self::order_from_time(sessions, Utc::now())
+	}
+
+	pub fn order_from_time(sessions: &mut Vec<Session>, time: DateTime<Utc>) {
 		sessions.sort_by(|a, b| {
 			a.schedule
-				.time_to_next_from_current(time)
-				.cmp(&b.schedule.time_to_next_from_current(time))
-		});
-		sessions
+				.time_to_next_from_time(time)
+				.cmp(&b.schedule.time_to_next_from_time(time))
+		})
 	}
 }
 
@@ -79,7 +82,7 @@ mod tests {
 
 	#[test]
 	fn schedules_are_ordered_chronologically() {
-		let sessions = vec![
+		let mut sessions = vec![
 			Session {
 				club: "Second".to_string(),
 				schedule: Schedule::new(Weekday::Wed, NaiveTime::from_hms(19, 00, 00), 0),
@@ -94,13 +97,13 @@ mod tests {
 			},
 		];
 
-		let ordered = Session::order(
-			sessions,
+		Session::order_from_time(
+			&mut sessions,
 			Utc.isoywd(2020, 2, Weekday::Tue).and_hms(12, 00, 00),
 		);
 
-		assert_eq!(ordered.get(0).unwrap().club, "First".to_string());
-		assert_eq!(ordered.get(1).unwrap().club, "Second".to_string());
-		assert_eq!(ordered.get(2).unwrap().club, "Third".to_string());
+		assert_eq!(sessions.get(0).unwrap().club, "First".to_string());
+		assert_eq!(sessions.get(1).unwrap().club, "Second".to_string());
+		assert_eq!(sessions.get(2).unwrap().club, "Third".to_string());
 	}
 }
