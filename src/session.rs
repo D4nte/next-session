@@ -32,7 +32,8 @@ impl Component for Session {
 		let text = move || -> Html {
 			if self.schedule.unverified() {
 				html! {
-				<p class="card-text">{ time }
+				<p>
+					{ time }
 					<p style="display:inline-block;" id="righttip" title="Session start time is unknown, this is a poor guess.">
 						<svg class="bi bi-question-circle ml-1" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 							<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
@@ -42,9 +43,7 @@ impl Component for Session {
 				</p>
 				}
 			} else {
-				html! {
-					<p class="card-text">{ time }</p>
-				}
+				html! { time }
 			}
 		};
 
@@ -52,7 +51,12 @@ impl Component for Session {
 		<div class="card bg-light mt-3 mb-3" style="">
 			<div class="card-body">
 				<h5 class="card-title">{ club }</h5>
-				{ text() }
+				<p class="card-text">{ text() }</p>
+				<a href={ self.link.as_str() }>
+					<button type="button" class="btn btn-outline-secondary">
+						{ "Join" }
+					</button>
+				</a>
 			</div>
 		</div>
 		}
@@ -61,6 +65,7 @@ impl Component for Session {
 
 pub struct Session {
 	pub club: String,
+	pub link: String,
 	pub schedule: Schedule,
 }
 

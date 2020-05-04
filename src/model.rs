@@ -50,6 +50,7 @@ impl From<Config> for Model {
 			.map(|session| {
 				Session {
 					club: session.name,
+					link: session.link,
 					// Assume all timings are BST for now.
 					schedule: Schedule::new(session.weekday, session.start, 1),
 				}
