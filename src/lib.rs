@@ -18,6 +18,7 @@ use chrono::{NaiveTime, Weekday};
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
+mod config;
 mod schedule;
 mod session;
 
