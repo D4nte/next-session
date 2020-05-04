@@ -62,8 +62,13 @@ impl Default for Session {
 }
 
 impl Session {
-	pub fn order(sessions: Vec<Session>, time: DateTime<Utc>) -> Vec<Session> {
-		unimplemented!()
+	pub fn order(mut sessions: Vec<Session>, time: DateTime<Utc>) -> Vec<Session> {
+		sessions.sort_by(|a, b| {
+			a.schedule
+				.time_to_next_from_current(time)
+				.cmp(&b.schedule.time_to_next_from_current(time))
+		});
+		sessions
 	}
 }
 
