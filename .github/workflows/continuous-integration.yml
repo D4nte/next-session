@@ -26,7 +26,7 @@ jobs:
       - name: Run Clippy
         run: make clippy
 
-      - name: Build ${{ matrix.os }} binary
+      - name: Build
         run: make build
 
       - name: Run tests
