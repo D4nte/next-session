@@ -20,6 +20,18 @@ jobs:
           toolchain: ${{ env.RUST_TOOLCHAIN }}
           override: true
 
+      - name: Cache ./target
+        uses: actions/cache@v1
+        with:
+          path: target
+          key: rust-${{ env.RUST_TOOLCHAIN }}-v1-target-${{ hashFiles('Cargo.lock') }}
+
+      - name: Cache ~/.cargo/registry
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/registry
+          key: rust-${{ env.RUST_TOOLCHAIN }}-v1-cargo-registry-${{ hashFiles('Cargo.lock') }}
+
       - name: Check formatting
         run: make check_format
 
