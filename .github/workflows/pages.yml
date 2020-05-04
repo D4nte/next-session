@@ -25,7 +25,7 @@ jobs:
           override: true
 
       - name: Build
-        run: make build
+        run: make build && ls pkg
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
