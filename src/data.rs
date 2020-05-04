@@ -3,16 +3,6 @@ pub const DATA: &str = r#"
 {
   "sessions": [
     {
-      "name": "Aston University Jiu Jitsu Club",
-      "link": "https://www.facebook.com/AstonJiuJitsu/",
-      "weekday": "Mon",
-      "start": "2030"
-    }, {
-      "name": "Brighton Jiu Jitsu Club",
-      "link": "https://www.facebook.com/groups/UniversitiesBrightonJitsu/",
-      "weekday": "Wed",
-      "start": "1900"
-    }, {
       "link": "https://www.facebook.com/AstonJiuJitsu/",
       "name": "Aston University Jiu Jitsu Club",
       "weekday": "Mon",
