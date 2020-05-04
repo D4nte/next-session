@@ -162,14 +162,6 @@ pub const DATA: &str = r#"
       "weekday": "Tue",
       "start": "1800"
     }, {
-      "link": "https://www.facebook.com/Sheffield-Jitsu-Club-108109495961794/",
-      "name": "Sheffield Jiu Jitsu Club",
-      "weekday": "Mon"
-    }, {
-      "link": "https://www.facebook.com/Sheffield-Jitsu-Club-108109495961794/",
-      "name": "Sheffield Jiu Jitsu Club",
-      "weekday": "Wed"
-    }, {
       "link": "https://www.facebook.com/SouthamptonJitsuClub/",
       "name": "Southampton Jiu Jitsu Club",
       "weekday": "Mon",
