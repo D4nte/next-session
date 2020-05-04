@@ -7,10 +7,14 @@ TOOLCHAIN = $(shell cat rust-toolchain)
 CARGO = $(RUSTUP) run --install $(TOOLCHAIN) cargo --color always
 
 INSTALLED_COMPONENTS = $(shell $(RUSTUP) component list --installed --toolchain $(TOOLCHAIN))
+FMT_INSTALLED_COMPONENTS = $(shell $(RUSTUP) component list --installed --toolchain $(FMT_TOOLCHAIN))
 
 install_rust_fmt:
 ifeq (,$(findstring $(FMT_TOOLCHAIN),$(INSTALLED_TOOLCHAINS)))
 	$(RUSTUP) install $(FMT_TOOLCHAIN)
+endif
+ifeq (,$(findstring rustfmt,$(FMT_INSTALLED_COMPONENTS)))
+	$(RUSTUP) component add rustfmt --toolchain $(FMT_TOOLCHAIN)
 endif
 
 install_rust:
