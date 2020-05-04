@@ -84,6 +84,7 @@ impl Default for Session {
 		use chrono::{NaiveTime, Weekday};
 		Session {
 			club: "UTS Jitsu".to_string(),
+			link: "".into(),
 			schedule: Schedule::new(Weekday::Wed, Some(NaiveTime::from_hms(19, 15, 00)), 10),
 		}
 	}
@@ -113,14 +114,17 @@ mod tests {
 		let mut sessions = vec![
 			Session {
 				club: "Second".to_string(),
+				link: "".into(),
 				schedule: Schedule::new(Weekday::Wed, Some(NaiveTime::from_hms(19, 00, 00)), 0),
 			},
 			Session {
 				club: "First".to_string(),
+				link: "".into(),
 				schedule: Schedule::new(Weekday::Wed, Some(NaiveTime::from_hms(20, 00, 00)), 3),
 			},
 			Session {
 				club: "Third".to_string(),
+				link: "".into(),
 				schedule: Schedule::new(Weekday::Mon, Some(NaiveTime::from_hms(10, 00, 00)), 1),
 			},
 		];
