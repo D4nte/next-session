@@ -165,7 +165,7 @@ pub const DATA: &str = r#"
       "link": "https://www.facebook.com/utsjitsu/",
       "name": "UTS Jitsu",
       "weekday": "Wed",
-      "start": "0930"
+      "start": "1030"
     }, {
       "link": "https://www.facebook.com/groups/tadley.jitsu/",
       "name": "Tadley Jiu Jitsu Club, Hampshire",
