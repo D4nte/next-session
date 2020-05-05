@@ -19,6 +19,12 @@ use crate::model::Model;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 
+#[cfg(target_arch = "wasm32")]
+pub use wasm_bindgen::__rt::std;
+
+#[cfg(not(target_arch = "wasm32"))]
+pub use std;
+
 mod config;
 mod data;
 mod model;

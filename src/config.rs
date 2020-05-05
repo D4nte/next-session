@@ -1,23 +1,6 @@
+use crate::std::{fmt, fs::File, io::BufReader, path::Path};
 use chrono::{NaiveTime, Weekday};
 use serde::{Deserialize, Deserializer};
-
-#[cfg(target_arch = "wasm32")]
-use wasm_bindgen::__rt::std::fmt;
-#[cfg(target_arch = "wasm32")]
-use wasm_bindgen::__rt::std::fs::File;
-#[cfg(target_arch = "wasm32")]
-use wasm_bindgen::__rt::std::io::BufReader;
-#[cfg(target_arch = "wasm32")]
-use wasm_bindgen::__rt::std::path::Path;
-
-#[cfg(not(target_arch = "wasm32"))]
-use std::fmt;
-#[cfg(not(target_arch = "wasm32"))]
-use std::fs::File;
-#[cfg(not(target_arch = "wasm32"))]
-use std::io::BufReader;
-#[cfg(not(target_arch = "wasm32"))]
-use std::path::Path;
 
 #[derive(Debug, Deserialize, PartialEq)]
 pub struct Config {
