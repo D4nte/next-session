@@ -258,6 +258,11 @@ pub const DATA: &str = r#"
       "weekday": "Thu",
       "start": "1900"
     }, {
+      "link": "https://www.facebook.com/ReadingKnightsJitsu/",
+      "name": "University of Reading Jiu Jitsu Club",
+      "weekday": "Sun",
+      "start": "1100"
+    }, {
       "link": "https://www.facebook.com/ShefUniJiuJitsu/",
       "name": "University of Sheffield Jiu Jitsu Club",
       "weekday": "Thu"
