@@ -29,7 +29,7 @@ pub struct Session {
 	pub name: String,
 	pub link: String,
 	#[serde(deserialize_with = "deserialize_weekday")]
-	pub weekday: chrono::Weekday,
+	pub weekday: Weekday,
 	#[serde(default)]
 	#[serde(deserialize_with = "deserialize_time")]
 	pub start: Option<NaiveTime>,

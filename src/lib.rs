@@ -1,6 +1,9 @@
 #![warn(
 	unused_extern_crates,
 	rust_2018_idioms,
+	missing_copy_implementations,
+	unused_qualifications,
+	unused_results,
 	clippy::cast_possible_truncation,
 	clippy::cast_sign_loss,
 	clippy::fallible_impl_from,
@@ -24,5 +27,5 @@ mod session;
 
 #[wasm_bindgen(start)]
 pub fn run_app() {
-	App::<Model>::new().mount_to_body();
+	let _ = App::<Model>::new().mount_to_body();
 }
