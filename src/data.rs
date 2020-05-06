@@ -8,11 +8,6 @@ pub const DATA: &str = r#"
       "weekday": "Mon",
       "start": "2030"
     }, {
-      "link": "https://www.facebook.com/groups/UniversitiesBrightonJitsu/",
-      "name": "Brighton Jiu Jitsu Club",
-      "weekday": "Wed",
-      "start": "1900"
-    }, {
       "link": "https://www.facebook.com/groups/bruneljitsu/",
       "name": "Brunel University Jiu Jitsu Club",
       "weekday": "Wed",
